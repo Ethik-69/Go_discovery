@@ -151,6 +151,12 @@ func anotherswitch() {
 }
 
 func main() {
+	// Defer wait for the end of the current function
+	// Deferred function calls are pushed onto a stack. When a function returns, its deferred calls are executed in last-in-first-out order.
+	defer fmt.Println("Job Done =D")
+	for i := 0; i < 10; i++ {
+		defer fmt.Println(i)
+	}
 	// Printn (with newline) Print without newline
 	fmt.Println("Time:", time.Now())
 	fmt.Println("TimeStamp in Nanoseconds:", time.Now().UTC().UnixNano())
