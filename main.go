@@ -311,6 +311,23 @@ func sliceContainedDataType() {
 	}
 }
 
+func sliceAppend() {
+	var s []int
+	printSlice(s)
+
+	// sppend works on nil slices
+	s = append(s, 0)
+	printSlice(s)
+
+	// The slice grows as needed
+	s = append(s, 1)
+	printSlice(s)
+
+	// We cen add more than one element at a time
+	s = append(s, 2, 3, 4)
+	printSlice(s)
+}
+
 func hash() {
 	fmt.Println("Struct:")
 	type Vertex struct {
@@ -370,5 +387,6 @@ func main() {
 	sliceLenghtAndCapacity()
 	sliceMake()
 	sliceContainedDataType()
+	sliceAppend()
 	hash()
 }
