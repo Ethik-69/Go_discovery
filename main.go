@@ -158,18 +158,79 @@ func pointer() {
 	*p = 21         // set i through the pointer
 	fmt.Println(i)  // see the new value of i
 
-	p = &j         // point to j
+	p = &j         // poin t to j
 	*p = *p / 37   // divide j through the pointer
 	fmt.Println(j) // see the new value of j
+}
+
+func array() {
+	// Array hav fixed size
+	fmt.Println("Array:")
+	var a [2]string
+	a[0] = "hello"
+	a[1] = "World"
+	fmt.Println(a[0], a[1])
+	fmt.Println(a)
+
+	primes := [6]int{2, 3, 5, 7, 11, 13}
+	fmt.Println(primes)
+
+	fmt.Println("Slice:")
+	// Slice are dynamically-sized
+	// Slice does not store any data, it just describes section of an underlying array
+	var s []int = primes[1:4]
+	fmt.Println(s)
+
+	names := [4]string{
+		"John",
+		"Paul",
+		"George",
+		"Ringo",
+	}
+	fmt.Println(names)
+
+	b := names[0:2]
+	c := names[1:3]
+	fmt.Println(b, c)
+
+	c[0] = "XXX"
+	fmt.Println(b, c)
+	fmt.Println(names)
+
+}
+
+func hash() {
+	fmt.Println("Struct:")
+	type Vertex struct {
+		x int
+		y int
+	}
+	fmt.Println(Vertex{1, 2})
+
+	v := Vertex{1, 2}
+	fmt.Println(v.x)
+	fmt.Println(v.y)
+
+	// Pointer
+	p := &v
+	p.x = 1e9
+	fmt.Println(v)
+
+	v1 := Vertex{1, 2} // Hes type Vertex
+	v2 := Vertex{x: 1} // y:0 is implicit
+	v3 := Vertex{}     // x:0 and y:0
+	p = &Vertex{1, 2}  // Has type *Vertex
+	fmt.Println(v1, p, v2, v3)
 }
 
 func main() {
 	// Defer wait for the end of the current function
 	// Deferred function calls are pushed onto a stack. When a function returns, its deferred calls are executed in last-in-first-out order.
 	defer fmt.Println("Job Done =D")
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 5; i++ {
 		defer fmt.Println(i)
 	}
+	defer fmt.Println("Job Almost Done =D")
 	// Printn (with newline) Print without newline
 	fmt.Println("Time:", time.Now())
 	fmt.Println("TimeStamp in Nanoseconds:", time.Now().UTC().UnixNano())
@@ -192,4 +253,6 @@ func main() {
 	switchcase()
 	anotherswitch()
 	pointer()
+	array()
+	hash()
 }
