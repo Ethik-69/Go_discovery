@@ -158,7 +158,7 @@ func pointer() {
 	*p = 21         // set i through the pointer
 	fmt.Println(i)  // see the new value of i
 
-	p = &j         // poin t to j
+	p = &j         // point to j
 	*p = *p / 37   // divide j through the pointer
 	fmt.Println(j) // see the new value of j
 }
@@ -196,7 +196,72 @@ func array() {
 	c[0] = "XXX"
 	fmt.Println(b, c)
 	fmt.Println(names)
+}
 
+func moreSlice() {
+	fmt.Println("More Slice:")
+	q := []int{2, 3, 5, 7, 11, 13}
+	fmt.Println(q)
+
+	r := []bool{true, false, true, true, false, true}
+	fmt.Println(r)
+
+	s := []struct {
+		i int
+		b bool
+	}{
+		{2, true},
+		{3, false},
+		{5, true},
+		{7, true},
+		{11, false},
+		{13, true},
+	}
+	fmt.Println(s)
+	fmt.Println(s[0])
+
+	// default value for slice
+	// var d [10]int
+	// d[0:10]
+	// d[:10]
+	// d[0:]
+	// d[:]
+	// All of this are the same things
+
+	t := []int{2, 3, 5, 7, 11, 13}
+
+	t = t[1:4]
+	fmt.Println(t)
+
+	t = t[:2]
+	fmt.Println(t)
+
+	t = t[1:]
+	fmt.Println(t)
+}
+
+func printSlice(s []int) {
+	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+}
+
+func sliceLenghtAndCapacity() {
+	fmt.Println("Slice Lenght and Capacity:")
+	// Slice lenght is the number of items in it
+	// Slice capacity is the number og items in the underlying (original) array
+	s := []int{2, 3, 5, 7, 11, 13}
+	printSlice(s)
+
+	// Slice the slice to give it zero lenght
+	s = s[:0]
+	printSlice(s)
+
+	// Extend its lenght
+	s = s[:4]
+	printSlice(s)
+
+	// Drop its first two values
+	s = s[2:]
+	printSlice(s)
 }
 
 func hash() {
@@ -254,5 +319,7 @@ func main() {
 	anotherswitch()
 	pointer()
 	array()
+	moreSlice()
+	sliceLenghtAndCapacity()
 	hash()
 }
