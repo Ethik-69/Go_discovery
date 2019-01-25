@@ -5,6 +5,7 @@ import (
 	"math"
 	"math/cmplx"
 	"math/rand"
+	"runtime"
 	"time"
 )
 
@@ -125,6 +126,17 @@ func ifStatementWithShort(x, n, lim float64) float64 {
 	return lim
 }
 
+func switchcase() {
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		fmt.Println("OS X")
+	case "linux":
+		fmt.Println("Linux")
+	default:
+		fmt.Printf("%s", os)
+	}
+}
+
 func main() {
 	// Printn (with newline) Print without newline
 	fmt.Println("Time:", time.Now())
@@ -145,4 +157,5 @@ func main() {
 	forLoop()
 	fmt.Println("If St:", ifStatement(15))
 	fmt.Println("If St Short:", ifStatementWithShort(3, 3, 20))
+	switchcase()
 }
