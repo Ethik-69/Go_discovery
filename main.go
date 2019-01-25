@@ -150,6 +150,19 @@ func anotherswitch() {
 	}
 }
 
+func pointer() {
+	i, j := 42, 2701
+
+	p := &i         // point to i
+	fmt.Println(*p) // read i through the pointer
+	*p = 21         // set i through the pointer
+	fmt.Println(i)  // see the new value of i
+
+	p = &j         // point to j
+	*p = *p / 37   // divide j through the pointer
+	fmt.Println(j) // see the new value of j
+}
+
 func main() {
 	// Defer wait for the end of the current function
 	// Deferred function calls are pushed onto a stack. When a function returns, its deferred calls are executed in last-in-first-out order.
@@ -178,4 +191,5 @@ func main() {
 	fmt.Println("If St Short:", ifStatementWithShort(3, 3, 20))
 	switchcase()
 	anotherswitch()
+	pointer()
 }
