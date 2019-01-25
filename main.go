@@ -137,6 +137,19 @@ func switchcase() {
 	}
 }
 
+func anotherswitch() {
+	// Switch case true is a good way to do a long if then else statement
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning !")
+	case t.Hour() < 1:
+		fmt.Println("Good afternoon !")
+	default:
+		fmt.Println("Good evening !")
+	}
+}
+
 func main() {
 	// Printn (with newline) Print without newline
 	fmt.Println("Time:", time.Now())
@@ -158,4 +171,5 @@ func main() {
 	fmt.Println("If St:", ifStatement(15))
 	fmt.Println("If St Short:", ifStatementWithShort(3, 3, 20))
 	switchcase()
+	anotherswitch()
 }
