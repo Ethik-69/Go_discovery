@@ -54,6 +54,7 @@ func funWithNumber() {
 	numberOne, numbertwo := split(15)
 	fmt.Println("Split:", numberOne, numbertwo)
 }
+
 func getType() {
 	// Var declaration can be factored like the imports statement
 	var (
@@ -200,6 +201,14 @@ func array() {
 
 func moreSlice() {
 	fmt.Println("More Slice:")
+	// Zero(default) value of a slice
+	var def []int
+	fmt.Println(def, len(def), cap(def))
+	if def == nil {
+		fmt.Println("nil !")
+	}
+
+	// Next
 	q := []int{2, 3, 5, 7, 11, 13}
 	fmt.Println(q)
 
