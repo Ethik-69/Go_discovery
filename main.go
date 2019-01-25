@@ -312,6 +312,8 @@ func sliceContainedDataType() {
 }
 
 func sliceAppend() {
+	// If the backing array of s is too small to fit all the given values
+	// a bigger array will be allocated.
 	var s []int
 	printSlice(s)
 
@@ -352,6 +354,28 @@ func hash() {
 	fmt.Println(v1, p, v2, v3)
 }
 
+func rangeuh() {
+	fmt.Println("Range:")
+	// Yeah, i can use the word range...
+	// With range on a slice, two values are returned for each iteration
+	// The first is the index
+	// The second is a copy of the element
+	var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+	for i, v := range pow {
+		fmt.Printf("2**%d = %d\n", i, v)
+	}
+
+	// You can skip the index or the value
+	// by assigning it to _
+	for i := range pow {
+		pow[i] = 1 << uint(i) // == 2**i
+	}
+	for _, value := range pow {
+		fmt.Printf("%d\n", value)
+	}
+}
+
 func main() {
 	// Defer wait for the end of the current function
 	// Deferred function calls are pushed onto a stack. When a function returns, its deferred calls are executed in last-in-first-out order.
@@ -389,4 +413,5 @@ func main() {
 	sliceContainedDataType()
 	sliceAppend()
 	hash()
+	rangeuh()
 }
