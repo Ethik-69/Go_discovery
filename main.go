@@ -6,6 +6,7 @@ import (
 	"math/cmplx"
 	"math/rand"
 	"runtime"
+	"strings"
 	"time"
 )
 
@@ -273,6 +274,43 @@ func sliceLenghtAndCapacity() {
 	printSlice(s)
 }
 
+func sliceMake() {
+	fmt.Println("Slice Make:")
+	// Create a slice with make is the way to create dynamically-sized array
+	// The make function allocates a zeroed array and returns a slice that refers to it
+	a := make([]int, 5)
+	printSlice(a)
+
+	// make with a specified cap
+	b := make([]int, 0, 5)
+	printSlice(b)
+
+	c := b[:2]
+	printSlice(c)
+
+	d := c[2:5]
+	printSlice(d)
+}
+
+func sliceContainedDataType() {
+	fmt.Println("Tic Tac Toe:")
+	// Slice can contain any datatype
+	board := [][]string{
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+	}
+	board[0][0] = "X"
+	board[2][2] = "O"
+	board[1][2] = "X"
+	board[1][0] = "O"
+	board[0][2] = "X"
+
+	for i := 0; i < len(board); i++ {
+		fmt.Printf("%s\n", strings.Join(board[i], " "))
+	}
+}
+
 func hash() {
 	fmt.Println("Struct:")
 	type Vertex struct {
@@ -330,5 +368,7 @@ func main() {
 	array()
 	moreSlice()
 	sliceLenghtAndCapacity()
+	sliceMake()
+	sliceContainedDataType()
 	hash()
 }
