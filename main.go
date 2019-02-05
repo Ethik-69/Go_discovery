@@ -5,6 +5,7 @@ import (
 	"math"
 	"math/cmplx"
 	"math/rand"
+	"reflect"
 	"runtime"
 	"strings"
 	"time"
@@ -169,6 +170,8 @@ func array() {
 	// Array hav fixed size
 	fmt.Println("Array:")
 	var a [2]string
+	v := reflect.TypeOf(a)
+	fmt.Printf("type of array is: %v\n", v.Kind())
 	a[0] = "hello"
 	a[1] = "World"
 	fmt.Println(a[0], a[1])
@@ -376,6 +379,75 @@ func rangeuh() {
 	}
 }
 
+func fibonacci(n int, c chan int) {
+	x, y := 0, 1
+	for i := 0; i < n; i++ {
+		// Put data into channel // Use x := <- c to get data from channel
+		c <- x
+		x, y = y, x+y
+	}
+	// Send a close signal to the channel
+	// v, ok := <-ch
+	// ok become false when close is called
+	close(c)
+}
+
+func fibonacciWithSelect(ch, quit chan int) {
+	x, y := 0, 1
+	// While loop
+	for {
+		select {
+		case ch <- x:
+			x, y = y, x+y
+		case <-quit:
+			fmt.Println("quit")
+			return
+		}
+	}
+}
+
+func goroutines() {
+	// channel creation
+	c := make(chan int, 10)
+	// Goroutine call (cap return the capacity, len return the lenght)
+	go fibonacci(cap(c), c)
+	for i := range c {
+		fmt.Println(i)
+	}
+	// -----------------------------------------------------------------
+	fmt.Println("With Select:")
+	ch := make(chan int)
+	quit := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println(<-ch)
+		}
+		quit <- 0
+	}()
+	// So... ch can have only one value in it
+	// when the print that's in the for stop getting value from ch
+	// the select/case can't put any more value in it, so quit
+	fibonacciWithSelect(ch, quit)
+	// -----------------------------------------------------------------
+	fmt.Println("Select With Default:")
+	// Each 100 Millisecond
+	tick := time.Tick(100 * time.Millisecond)
+	// After 500 Millisecond
+	boom := time.After(500 * time.Millisecond)
+	for {
+		select {
+		case <-tick:
+			fmt.Println("tick.")
+		case <-boom:
+			fmt.Println("BOOM!")
+			return
+		default:
+			fmt.Println("    .")
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
+}
+
 func main() {
 	// Defer wait for the end of the current function
 	// Deferred function calls are pushed onto a stack. When a function returns, its deferred calls are executed in last-in-first-out order.
@@ -414,4 +486,7 @@ func main() {
 	sliceAppend()
 	hash()
 	rangeuh()
+	fmt.Println("Goroutines ----------------------------")
+	goroutines()
+	fmt.Println("Goroutines End ----------------------------")
 }
